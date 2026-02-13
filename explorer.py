@@ -33,7 +33,9 @@ if __name__ == "__main__":
     df = open_combined_csv(OUT_CSV)
     print("Combined shape:", df.shape)
     print(df.columns.tolist())
+    df["trip_duration_sec"] = pd.to_numeric(df["trip_duration_sec"])
     df["gender"] = pd.to_numeric(df["gender"])
     df["birth_year"] = pd.to_numeric(df["birth_year"])
-
-    print(df["birth_year"].mean())
+    print("Average gender (1 male, 2 female):",df["gender"].mean())
+    print("Average age of rider:", 2014-df["birth_year"].mean())
+    print("Average trip duration (seconds):", df["trip_duration_sec"].mean())
