@@ -34,8 +34,22 @@ if __name__ == "__main__":
     print("Combined shape:", df.shape)
     print(df.columns.tolist())
     df["trip_duration_sec"] = pd.to_numeric(df["trip_duration_sec"])
-    df["gender"] = pd.to_numeric(df["gender"])
-    df["birth_year"] = pd.to_numeric(df["birth_year"])
+    df = df.dropna(subset=['gender','birth_year'])
+    df["gender"] = pd.to_numeric(df["gender"],errors="coerce")
+    df["birth_year"] = pd.to_numeric(df["birth_year"],errors="coerce")
+    
+
     print("Average gender (1 male, 2 female):",df["gender"].mean())
     print("Average age of rider:", 2014-df["birth_year"].mean())
     print("Average trip duration (seconds):", df["trip_duration_sec"].mean())
+
+    btotal = 0
+    bcount = 0
+    for by in df["birth_year"]:
+        btotal = btotal + (2014-by)
+        bcount = bcount + 1
+    
+    print(btotal)
+    print(bcount)
+    baverage = btotal / bcount
+    print("Average age is", baverage)
