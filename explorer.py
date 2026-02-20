@@ -45,11 +45,30 @@ if __name__ == "__main__":
 
     btotal = 0
     bcount = 0
+    youngest_year = 0  # largest year = youngest person
+    oldest_year = 9999 # smallest year = oldest person
+
     for by in df["birth_year"]:
         btotal = btotal + (2014-by)
         bcount = bcount + 1
+        if by > youngest_year:
+            youngest_year = by
+        if by < oldest_year and by >= 1900:
+            oldest_year = by
+
+    genders = [0, 0, 0]
+    gcount = 0
+    for g in df["gender"]:
+        genders[g] = genders[g] + 1
+        gcount = gcount + 1
+    percentages = [gtotal/gcount for gtotal in genders]
+    
+    print(genders)
+    print(percentages)
     
     print(btotal)
     print(bcount)
     baverage = btotal / bcount
     print("Average age is", baverage)
+    print("Youngest: ", 2014-youngest_year)
+    print("Oldest: ", 2014-oldest_year)
